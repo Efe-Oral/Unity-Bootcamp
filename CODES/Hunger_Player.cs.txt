@@ -1,0 +1,71 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+using UnityEngine.Rendering.PostProcessing;
+
+
+
+public class Hunger_Player : MonoBehaviour
+{
+    [SerializeField] private PostProcessVolume _postProcessVolume;
+    private ColorGrading _colorGrading;
+    private Grain _grain;
+    public Image hungerBar;
+    public float HungerAmount = 100;
+    public int ouch;
+    public bool value;
+    public float timeValue = 100f;
+    private void Start()
+    {
+        _postProcessVolume.profile.TryGetSettings(out _colorGrading);
+        _postProcessVolume.profile.TryGetSettings(out _grain);
+    }
+    
+    private void Update()
+    {  
+        timeValue -= Time.deltaTime;
+        hungerBar.fillAmount = timeValue / 100;
+        HungerAmount = timeValue;
+
+        if(HungerAmount <= 0) //POST PROCESSİNGGGG
+        {
+            value = true;
+            HungerAmount = 0;
+            timeValue = 0;
+        }
+        else
+        {
+            value = false;
+        }
+    
+    BWOnOff(value);
+    }
+    public void BWOnOff(bool value)
+{
+    _colorGrading.active = value;
+    _grain.active = value;
+}
+    private void OnTriggerEnter(Collider other)
+{
+    
+    if(other.CompareTag("Collectable"))
+    {
+        Debug.Log("Destroyed GameObject");
+        timeValue = timeValue + 9;  //MANTAR YEDİKCE ZAMAN ARTSIN
+        if(timeValue > 100)
+        {
+            timeValue = 100;
+            HungerAmount = 100;
+        }
+        Destroy(other.gameObject);
+    }
+}
+    //public void Healing(float healPoints)
+    //{
+        //HungerAmount += healPoints;
+        //HungerAmount = Mathf.Clamp(HungerAmount, 0, 100);
+        //hungerBar.fillAmount = HungerAmount / 100;
+    //}
+}

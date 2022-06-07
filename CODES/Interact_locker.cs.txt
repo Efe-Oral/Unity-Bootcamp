@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Interact_locker : MonoBehaviour, Interface_Interactable
+{
+    [SerializeField] private string _promt;
+    public string InteractionPromt => _promt;
+    public bool Interact(Interactor_byefe interactor) //Interactor_byefe -> Interactor
+    {
+        Debug.Log("Opening Locker!!!"); //Do somethings after the Interaction!!!
+        GetComponent<Animator>().Play("locker_door_open");
+        return true;
+    }
+}

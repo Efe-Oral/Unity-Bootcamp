@@ -1,0 +1,23 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Collectable : MonoBehaviour
+{
+    public GameObject _mushroomSound;
+    void Start()
+    {
+        _mushroomSound.SetActive(false);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        //Debug.Log("Triggered");
+        if(other.CompareTag("Collectable"))
+        {
+            Debug.Log("Destroyed GameObjxxxxxxxxxxxxect");
+            Destroy(other.gameObject);
+            _mushroomSound.SetActive(true);
+            _mushroomSound.GetComponent<AudioSource>().Play();
+        }
+    }
+}

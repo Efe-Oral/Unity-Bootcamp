@@ -1,0 +1,57 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
+
+
+public class Health_Player : MonoBehaviour
+{
+    public Image healthBar;
+    public float healthAmount = 100;
+    public int ouch;
+    
+    private void Update()
+    {
+
+        if(healthAmount <= 0)
+        {
+            SceneManager.LoadScene(1);
+        }
+        /* GOD MODE
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            TakeDamage(ouch);
+        }
+
+        if(Input.GetKeyDown(KeyCode.T))
+        {
+            Healing(10);
+        }
+        */
+    }
+
+    public void TakeDamage(float Damage)
+    {
+        healthAmount -= Damage;
+        healthBar.fillAmount = healthAmount / 100;
+    }
+
+    public void Healing(float healPoints)
+    {
+        healthAmount += healPoints;
+        healthAmount = Mathf.Clamp(healthAmount, 0, 100);
+
+        healthBar.fillAmount = healthAmount / 100;
+    }
+    private void OnTriggerEnter(Collider other)
+    {   
+        if(other.gameObject.tag == "Enemy")
+        {
+            //Debug.Log("Enemy Detected!!!");
+            TakeDamage(ouch);
+        }
+    }
+    
+
+}

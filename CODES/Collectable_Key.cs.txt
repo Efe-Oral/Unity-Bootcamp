@@ -1,0 +1,34 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Collectable_Key : MonoBehaviour
+{
+    public GameObject gotowindmill;
+    public GameObject takekey;
+
+    void Start()
+    {
+        gotowindmill.SetActive(false);
+        takekey.SetActive(false);
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Key"))
+        {
+            takekey.SetActive(true);
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("Key") && (Input.GetKeyDown(KeyCode.E)))
+        {
+            Destroy(other.gameObject);
+            gotowindmill.SetActive(true);
+        }
+    }
+        private void OnTriggerExit(Collider other)
+    {
+        takekey.SetActive(false);
+    }
+}

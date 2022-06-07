@@ -1,0 +1,31 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+public class locker_collider : MonoBehaviour
+{
+    public GameObject keypadlamp;
+    public GameObject keypadlight;
+    public GameObject timeline;
+    void Start()
+    {
+        keypadlamp.SetActive(false);
+        keypadlight.SetActive(false);
+        timeline.SetActive(false);
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            if(Input.GetKeyDown("e"))
+            {
+                GetComponent<Animator>().Play("fuse_box_open");
+                timeline.SetActive(true);
+                keypadlamp.SetActive(true);
+                keypadlight.SetActive(true);
+                //Debug.Log("Press E");
+                //OPEN THE FİRST PUZZLE
+            }
+        }
+    }
+}

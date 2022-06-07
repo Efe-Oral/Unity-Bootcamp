@@ -1,0 +1,43 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+public class FinalDoorinteract : MonoBehaviour
+{
+    public GameObject player;
+    public GameObject pickUpText;
+    public bool inReach;
+    // Start is called before the first frame update
+    void Start()
+    {
+        pickUpText.SetActive(false);
+        inReach = false;
+    }
+    void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.CompareTag("Player"))
+        {
+            inReach = true;
+            pickUpText.SetActive(true);
+        }
+    }
+    
+    private void OnTriggerStay(Collider other)
+    {
+        if(other.CompareTag("Player") )
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                GetComponent<Animator>().Play("Finaldoor_open");
+            }
+        }
+    }
+
+        void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == "Player")
+        {
+            inReach = false;
+            pickUpText.SetActive(false);
+        }
+    }
+}

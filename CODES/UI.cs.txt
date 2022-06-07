@@ -1,0 +1,26 @@
+ using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class UI : MonoBehaviour
+{
+
+    private void OnTriggerEnterCollider(Collider other)
+    {
+        if(other.gameObject.CompareTag("UI"))
+        {
+            other.gameObject.SetActive(true);
+            Debug.Log("UI activated");
+        }
+    }
+    private void OnTriggerExitCollider(Collider other)
+    {
+        if(other.gameObject.CompareTag("UI"))
+        {
+            other.gameObject.SetActive(false);
+            Debug.Log("UI de-activated");
+        }
+    }
+
+   
+}
